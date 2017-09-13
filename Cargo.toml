@@ -1,0 +1,11 @@
+[package]
+name = "rosalind"
+version = "0.1.0"
+authors = ["Alan Kavishe <afksavish@gmail.com>"]
+
+[dependencies]
+dna = { path = "dna" }
+fib = { path = "fib" }
+perm = { path = "perm" }
+
+[workspace]

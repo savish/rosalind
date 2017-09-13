@@ -1,0 +1,7 @@
+{
+  "editor.tabSize": 4,
+  "elm.formatOnSave": true,
+  "files.exclude": {
+    "**/target": true
+  }
+}
