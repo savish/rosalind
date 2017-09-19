@@ -1,7 +1,10 @@
 {
   "editor.tabSize": 4,
-  "elm.formatOnSave": true,
+  "editor.formatOnSave": true,
   "files.exclude": {
     "**/target": true
-  }
+  },
+  "editor.rulers": [
+    80, 120
+  ]
 }

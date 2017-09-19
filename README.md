@@ -41,7 +41,7 @@ The available libraries are:
 From within the `rosalind` repo directory use:
 
 ```bash
-$ cargo run --example <EXAMPLE_NAME>
+$ cargo run --release --example <EXAMPLE_NAME>
 ```
 
 A list of examples is given below. The example names correspond to the short names assigned to the problems on the Rosaline project website.
@@ -50,10 +50,11 @@ For convenience, the command used to run the examples is also provided next to t
 
 Name | Command | Input
 --- | --- | ---
-`dna` | `cargo run --example dna` | DNA string
-`rna` | `cargo run --example rna` | DNA string
-`revc` | `cargo run --example revc` | DNA string
-`fib` | `cargo run --example fib` | 2 numbers
-`hamm` | `cargo run --example hamm` | 2 strings
-`perm` | `cargo run --example perm` | Number
-`sign` | `cargo run --example sign` | Number
+`dna` | `cargo run --release --example dna` | DNA string
+`rna` | `cargo run --release --example rna` | DNA string
+`revc` | `cargo run --release --example revc` | DNA string
+`fib` | `cargo run --release --example fib` | 2 numbers
+`fibd` | `cargo run --release --example fibd` | 2 numbers
+`hamm` | `cargo run --release --example hamm` | 2 strings
+`perm` | `cargo run --release --example perm` | Number
+`sign` | `cargo run --release --example sign` | Number
