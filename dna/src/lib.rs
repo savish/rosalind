@@ -17,6 +17,33 @@ fn reverse_string(input: &str) -> String {
 #[derive(Debug, PartialEq)]
 pub struct DNA(String);
 
+#[derive(Debug)]
+pub struct FastaDNA {
+    label: String,
+    dna: DNA,
+}
+
+impl FastaDNA {
+    /// Create a new Fasta DNA strand
+    pub fn new(label: String, dna_string: &str) -> FastaDNA {
+        FastaDNA {
+            label,
+            dna: DNA(dna_string.trim().to_string()),
+        }
+    }
+
+    pub fn label(&self) -> String {
+        (&self.label).to_string()
+    }
+
+    /// Return the GC content of a DNA strand
+    pub fn gc_content(&self) -> f64 {
+        let gc = (self.dna.count_symbol('G') + self.dna.count_symbol('C')) as i32;
+        let dna_len = self.dna.length() as i32;
+        (gc as f64 / dna_len as f64) * 100f64
+    }
+}
+
 impl fmt::Display for DNA {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let DNA(ref dna_string) = *self;
@@ -50,6 +77,12 @@ impl DNA {
     // Get the equivalent RNA symbol for a DNA one
     fn get_rna_symbol(symbol: char) -> char {
         RNA_SYMBOLS[DNA_SYMBOLS.iter().position(|&x| x == symbol).unwrap()]
+    }
+
+    // Get the length of the DNA string
+    fn length(&self) -> usize {
+        let DNA(ref dna) = *self;
+        dna.len()
     }
 
     /// Create a new DNA strand
@@ -131,12 +164,31 @@ impl DNA {
     /// use dna::*;
     /// let dna = DNA::new("ACGT");
     /// let dna2 = DNA::new("ACCC");
-    /// assert_eq!(dna.hamm(dna2), 2);
+    /// assert_eq!(dna.hamm(&dna2), 2);
     /// ```
     pub fn hamm(&self, other: &DNA) -> usize {
         let DNA(ref dna_string) = *self;
         let DNA(ref other_dna_string) = *other;
-        dna_string.chars().zip(other_dna_string.chars()).filter(|pair| pair.0 != pair.1).count()
+        dna_string
+            .chars()
+            .zip(other_dna_string.chars())
+            .filter(|pair| pair.0 != pair.1)
+            .count()
+    }
+
+    /// Return the GC content of a DNA strand
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use dna::*;
+    /// let dna = DNA::new("AGCTATAG");
+    /// assert_eq!(dna.gc_content(), 37.5);
+    /// ```
+    pub fn gc_content(&self) -> f64 {
+        let gc = (self.count_symbol('G') + self.count_symbol('C')) as i32;
+        let dna_len = self.length() as i32;
+        (gc as f64 / dna_len as f64) * 100f64
     }
 }
 
