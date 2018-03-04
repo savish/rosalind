@@ -203,7 +203,103 @@ impl fmt::Display for RNA {
     }
 }
 
+// UUU F      CUU L      AUU I      GUU V
+// UUC F      CUC L      AUC I      GUC V
+// UUA L      CUA L      AUA I      GUA V
+// UUG L      CUG L      AUG M      GUG V
+// UCU S      CCU P      ACU T      GCU A
+// UCC S      CCC P      ACC T      GCC A
+// UCA S      CCA P      ACA T      GCA A
+// UCG S      CCG P      ACG T      GCG A
+
+// UAU Y      CAU H      AAU N      GAU D
+// UAC Y      CAC H      AAC N      GAC D
+// UAA Stop   CAA Q      AAA K      GAA E
+// UAG Stop   CAG Q      AAG K      GAG E
+// UGU C      CGU R      AGU S      GGU G
+// UGC C      CGC R      AGC S      GGC G
+// UGA Stop   CGA R      AGA R      GGA G
+// UGG W      CGG R      AGG R      GGG G
+
 impl RNA {
+    fn codon_table(rna_slice: &str) -> &str {
+        match rna_slice {
+            "GAU" => "D",
+            "GAC" => "D",
+            "GAA" => "E",
+            "GAG" => "E",
+            "GGU" => "G",
+            "GGC" => "G",
+            "GGA" => "G",
+            "GGG" => "G",
+
+            "GUU" => "V",
+            "GUC" => "V",
+            "GUA" => "V",
+            "GUG" => "V",
+            "GCU" => "A",
+            "GCC" => "A",
+            "GCA" => "A",
+            "GCG" => "A",
+
+            "AAU" => "N",
+            "AAC" => "N",
+            "AAA" => "K",
+            "AAG" => "K",
+            "AGU" => "S",
+            "AGC" => "S",
+            "AGA" => "R",
+            "AGG" => "R",
+
+            "AUU" => "I",
+            "AUC" => "I",
+            "AUA" => "I",
+            "AUG" => "M",
+            "ACU" => "T",
+            "ACC" => "T",
+            "ACA" => "T",
+            "ACG" => "T",
+
+            "CAU" => "H",
+            "CAC" => "H",
+            "CAA" => "Q",
+            "CAG" => "Q",
+            "CGU" => "R",
+            "CGC" => "R",
+            "CGA" => "R",
+            "CGG" => "R",
+
+            "CUU" => "L",
+            "CUC" => "L",
+            "CUA" => "L",
+            "CUG" => "L",
+            "CCU" => "P",
+            "CCC" => "P",
+            "CCA" => "P",
+            "CCG" => "P",
+
+            "UUU" => "F",
+            "UUC" => "F",
+            "UUA" => "L",
+            "UUG" => "L",
+            "UCU" => "S",
+            "UCC" => "S",
+            "UCA" => "S",
+            "UCG" => "S",
+
+            "UAU" => "Y",
+            "UAC" => "Y",
+            "UAA" => "",
+            "UAG" => "",
+            "UGU" => "C",
+            "UGC" => "C",
+            "UGA" => "",
+            "UGG" => "W",
+
+            _ => "",
+        }
+    }
+
     /// Create a new RNA strand
     ///
     /// # Example
@@ -216,6 +312,33 @@ impl RNA {
     /// ```
     pub fn new(rna_string: &str) -> RNA {
         RNA(rna_string.trim().to_string())
+    }
+
+    /// Return a protein string corresponding to this RNA strand
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use dna::*;
+    ///
+    /// let rna = RNA::new("UUUUCU");
+    /// assert_eq!(rna.protein_string(), "FS");
+    /// ```
+    pub fn protein_string(&self) -> String {
+        let RNA(ref rna_string) = *self;
+
+        let rna_chars: Vec<char> = rna_string.chars().collect();
+        let string_arr = &rna_chars
+            .chunks(3)
+            .map(|chunk| chunk.iter().collect::<String>())
+            .collect::<Vec<_>>();
+
+        let p_string = string_arr
+            .iter()
+            .map(|cd| RNA::codon_table(&cd))
+            .collect::<Vec<_>>();
+
+        p_string.join("")
     }
 }
 

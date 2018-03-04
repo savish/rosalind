@@ -58,3 +58,5 @@
 //! `hamm` | `cargo run --release --example hamm` | 2 strings
 //! `perm` | `cargo run --release --example perm` | Number
 //! `sign` | `cargo run --release --example sign` | Number
+//! `gc` | `cargo run --release --example gc gc.txt` | `gc.txt` at root
+//! `prot` | `cargo run --release --example prot prot.txt` | `prot.txt` at root
