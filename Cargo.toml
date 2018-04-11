@@ -7,5 +7,6 @@ authors = ["Alan Kavishe <afksavish@gmail.com>"]
 dna = { path = "dna" }
 fib = { path = "fib" }
 perm = { path = "perm" }
+gene = { path = "gene" }
 
 [workspace]

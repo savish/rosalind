@@ -14,10 +14,7 @@ fn main() {
         .map(|x| usize::from_str(x).unwrap())
         .collect::<Vec<_>>();
 
-    println!(
-        "{:?}\n",
-        population(params[1]).nth((params[0] - 1)).unwrap()
-    );
+    println!("{:?}\n", population(params[1]).nth(params[0] - 1).unwrap());
 }
 
 fn description() {

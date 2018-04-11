@@ -1,14 +1,14 @@
 //! # Rosalind project
 
 //! The Rosalind project is a platform for learning bioinformatics through problem solving.
-//! More information about the project is available at http://rosalind.info/about/
+//! More information about the project is available at <http://rosalind.info/about/>
 //!
 //! This repository contains solutions to the problems listed below.
 
 //! ## 1. Setup
 //! This project is written entirely in Rust. Ensure that you are
 //! running the latest version of Rust (stable). You can get rust
-//! from here https://www.rust-lang.org
+//! from here <https://www.rust-lang.org>
 //!
 //! Once you have a working installation of rust available,
 //! proceed as follows from a terminal session:

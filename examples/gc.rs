@@ -5,13 +5,12 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
-
-fn fdna_from_string(fdna: &str) -> FastaDNA {
+fn fdna_from_string(fdna: &str) -> FASTA {
     let mut lines = fdna.split_whitespace();
     let label = lines.next().unwrap().to_string();
     let dna_string = lines.collect::<Vec<&str>>().join("");
 
-    FastaDNA::new(label, &dna_string)
+    FASTA::new(DNA::new(&dna_string), &label)
 }
 
 fn main() {
@@ -24,7 +23,7 @@ fn main() {
     f.read_to_string(&mut fasta_dna_strings)
         .expect("something went wrong reading the file");
 
-    let fdna_array: Vec<FastaDNA> = fasta_dna_strings
+    let fdna_array: Vec<FASTA> = fasta_dna_strings
         .split('>')
         .filter(|fdna| fdna.len() > 0)
         .map(|fdna| fdna_from_string(fdna))

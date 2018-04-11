@@ -9,6 +9,13 @@
       "command": "cargo",
       "args": ["test", "--all"],
       "problemMatcher": ["$rustc"]
+    },
+    {
+      "type": "shell",
+      "label": "cargo doc",
+      "command": "cargo",
+      "args": ["doc"],
+      "problemMatcher": ["$rustc"]
     }
   ]
 }

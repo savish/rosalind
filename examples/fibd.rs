@@ -17,7 +17,7 @@ fn main() {
     println!(
         "{:?}\n",
         population_with_moratilty(1, params[1])
-            .nth((params[0] - 1))
+            .nth(params[0] - 1)
             .unwrap()
     );
 }

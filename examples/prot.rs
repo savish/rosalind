@@ -15,6 +15,5 @@ fn main() {
     f.read_to_string(&mut rna_string)
         .expect("something went wrong reading the file");
 
-    let rna = RNA::new(&rna_string);
-    println!("{:?}", rna.protein_string())
+    println!("{}", Protein::from(RNA::new(&rna_string)))
 }

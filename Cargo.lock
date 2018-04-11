@@ -7,6 +7,10 @@ name = "fib"
 version = "0.1.0"
 
 [[package]]
+name = "gene"
+version = "0.1.0"
+
+[[package]]
 name = "perm"
 version = "0.1.0"
 
@@ -16,6 +20,7 @@ version = "0.1.0"
 dependencies = [
  "dna 0.1.0",
  "fib 0.1.0",
+ "gene 0.1.0",
  "perm 0.1.0",
 ]
 
