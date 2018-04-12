@@ -64,3 +64,4 @@ For convenience, the command used to run the examples is also provided next to t
 | `sign` | `cargo run --release --example sign`          | Number             |
 | `gc`   | `cargo run --release --example gc gc.txt`     | `gc.txt` at root   |
 | `prot` | `cargo run --release --example prot prot.txt` | `prot.txt` at root |
+| `subs` | `cargo run --release --example subs`          | 2 strings          |

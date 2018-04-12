@@ -370,25 +370,6 @@ impl GeneticString for FASTA {
 // Functions //
 // ///////// //
 
-/// Compute the Hamming distance between two strings
-///
-/// The hamming distance represents the number of single-character changes required to convert one
-/// string to another.
-///
-/// # Example
-/// ```rust
-/// # use gen_str::hamming_distance;
-/// hamming_distance("ACGTACGTAC", "AGGTACGTAA"); // 2
-/// # assert_eq!(hamming_distance("ACGTACGTAC", "AGGTACGTAA"), 2);
-/// ```
-pub fn hamming_distance(first: &str, other: &str) -> usize {
-    first
-        .chars()
-        .zip(other.chars())
-        .filter(|pair| pair.0 != pair.1)
-        .count()
-}
-
 // Count the number of times a character occurs in the given string
 fn count_character(character: char, in_string: &str) -> usize {
     in_string

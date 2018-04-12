@@ -60,3 +60,65 @@
 //! `sign` | `cargo run --release --example sign` | Number
 //! `gc` | `cargo run --release --example gc gc.txt` | `gc.txt` at root
 //! `prot` | `cargo run --release --example prot prot.txt` | `prot.txt` at root
+//! `subs` | `cargo run --release --example subs` | 2 strings
+
+/// Compute the Hamming distance between two strings
+///
+/// The hamming distance represents the number of single-character changes required to convert one
+/// string to another.
+///
+/// # Example
+/// ```rust
+/// # use rosalind::hamming_distance;
+/// hamming_distance("ACGTACGTAC", "AGGTACGTAA"); // 2
+/// # assert_eq!(hamming_distance("ACGTACGTAC", "AGGTACGTAA"), 2);
+/// ```
+pub fn hamming_distance(first: &str, other: &str) -> usize {
+    first
+        .chars()
+        .zip(other.chars())
+        .filter(|pair| pair.0 != pair.1)
+        .count()
+}
+
+/// Determine the positions of a substring in a given string
+///
+/// Returns a list of indices representing the starting position of each occurence of the substring
+///
+/// # Example
+/// ```rust
+/// # use rosalind::substring_locations;
+/// let source_string = "GATATATGCATATACTT";
+/// let substring = "ATAT";
+/// substring_locations(source_string, substring);  // [1, 3, 9];
+/// # assert_eq!(substring_locations(source_string, substring), vec![1usize, 3, 9]);
+/// ```
+pub fn substring_locations(source_string: &str, substring: &str) -> Vec<usize> {
+    let mut locations: Vec<usize> = vec![];
+    get_substring_locations(
+        source_string.trim(),
+        substring.trim(),
+        &mut locations,
+        0usize,
+    )
+}
+
+fn get_substring_locations(
+    source_string: &str,
+    substring: &str,
+    locations: &mut Vec<usize>,
+    slice_offset: usize,
+) -> Vec<usize> {
+    match source_string.find(substring) {
+        Some(location) => {
+            locations.push(location + slice_offset);
+            get_substring_locations(
+                &source_string[(location + 1)..],
+                substring,
+                locations,
+                location + slice_offset + 1,
+            )
+        }
+        None => locations.clone(),
+    }
+}
