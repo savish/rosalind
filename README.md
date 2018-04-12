@@ -48,7 +48,7 @@ From within the `rosalind` repo directory use:
 $ cargo run --release --example <EXAMPLE_NAME>
 ```
 
-A list of examples is given below. The example names correspond to the short names assigned to the problems on the Rosaline project website.
+A list of examples is given below. The example names correspond to the short names assigned to the problems on the Rosalind project website.
 
 For convenience, the command used to run the examples is also provided next to the example name.
 
