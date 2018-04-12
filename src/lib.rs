@@ -61,6 +61,11 @@
 //! `gc` | `cargo run --release --example gc gc.txt` | `gc.txt` at root
 //! `prot` | `cargo run --release --example prot prot.txt` | `prot.txt` at root
 //! `subs` | `cargo run --release --example subs` | 2 strings
+//! `mrna` | `cargo run --release --example mrna` | Protein string
+
+// //////// //
+// Funtions //
+// //////// //
 
 /// Compute the Hamming distance between two strings
 ///
