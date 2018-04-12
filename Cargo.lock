@@ -1,9 +1,9 @@
 [[package]]
-name = "dna"
+name = "fib"
 version = "0.1.0"
 
 [[package]]
-name = "fib"
+name = "gen_str"
 version = "0.1.0"
 
 [[package]]
@@ -18,8 +18,8 @@ version = "0.1.0"
 name = "rosalind"
 version = "0.1.0"
 dependencies = [
- "dna 0.1.0",
  "fib 0.1.0",
+ "gen_str 0.1.0",
  "gene 0.1.0",
  "perm 0.1.0",
 ]

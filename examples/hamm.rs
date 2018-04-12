@@ -1,6 +1,6 @@
-extern crate dna;
+extern crate gen_str;
 
-use dna::{hamming_distance, GeneticString, DNA};
+use gen_str::{hamming_distance, GeneticString, DNA};
 use std::io;
 
 fn main() {

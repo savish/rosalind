@@ -1,6 +1,6 @@
-extern crate dna;
+extern crate gen_str;
 
-use dna::*;
+use gen_str::*;
 use std::io;
 
 fn main() {

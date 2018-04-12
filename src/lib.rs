@@ -33,7 +33,7 @@
 //!
 //! The available libraries are:
 //!
-//! - `dna`
+//! - `gen_str`
 //! - `fib`
 //! - `perm`
 //!

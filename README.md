@@ -36,7 +36,7 @@ $ cargo test -p <LIBRARY_NAME>
 
 The available libraries are:
 
-* `dna`
+* `gen_str`
 * `fib`
 * `perm`
 

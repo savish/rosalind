@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Alan Kavishe <afksavish@gmail.com>"]
 
 [dependencies]
-dna = { path = "dna" }
+gen_str = { path = "gen_str" }
 fib = { path = "fib" }
 perm = { path = "perm" }
 gene = { path = "gene" }
