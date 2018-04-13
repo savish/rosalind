@@ -14,7 +14,7 @@
       "type": "shell",
       "label": "cargo doc",
       "command": "cargo",
-      "args": ["doc"],
+      "args": ["doc", "--open"],
       "problemMatcher": ["$rustc"]
     }
   ]
