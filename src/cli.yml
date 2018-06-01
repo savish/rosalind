@@ -1,0 +1,31 @@
+name: rosalind
+version: "0.1.0"
+author: "Alan K <afksavish@gmail.com>"
+about: "Solutions to the Rosalind Project problem set"
+
+settings:
+    - ColoredHelp
+    - SubcommandRequiredElseHelp
+
+subcommands:
+    - dna:
+        about: "Counting DNA Nucleotides"
+        long_about: "Given a DNA string, this returns four integers (separated by spaces) that 
+            represent the respective number of times that the symbols 'A', 'C', 'G', and 'T' occur 
+            in the source string."
+        
+        args:
+            - dna_string:
+                help: "A DNA string, upto 1000 nucleotides in length."
+                index: 1
+                required: true
+        
+    - rna: 
+        about: "Transcribing DNA into RNA"
+        long_about: "This returns the transcribed RNA string of a given DNA string."
+        
+        args:
+            - rna_string:
+                help: "A DNA string, upto 1000 nucleotides in length."
+                index: 1
+                required: true

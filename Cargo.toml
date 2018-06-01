@@ -9,4 +9,8 @@ fib = { path = "fib" }
 perm = { path = "perm" }
 gene = { path = "gene" }
 
+[dependencies.clap]
+version = "~2.31.0"
+features = ["yaml"]
+
 [workspace]
