@@ -25,7 +25,34 @@ subcommands:
         long_about: "This returns the transcribed RNA string of a given DNA string."
         
         args:
-            - rna_string:
+            - dna_string:
                 help: "A DNA string, upto 1000 nucleotides in length."
+                index: 1
+                required: true
+    
+    - revc:
+        about: "Complementing a Strand of DNA"
+        
+        args:
+            - dna_string:
+                help: "A DNA string, upto 1000 nucleotides in length."
+                index: 1
+                required: true
+    
+    - prot:
+        about: "Translating RNA into Protein"
+
+        args:
+            - rna_file:
+                help: "Text file containing an RNA string"
+                index: 1
+                required: true
+
+    - gc:
+        about: "Computing GC Content"
+
+        args:
+            - dna_file:
+                help: "Text file containing DNA strings in FASTA format"
                 index: 1
                 required: true
