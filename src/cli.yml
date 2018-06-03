@@ -56,3 +56,93 @@ subcommands:
                 help: "Text file containing DNA strings in FASTA format"
                 index: 1
                 required: true
+
+    - fib:
+        about: "Rabbits and Recurrence Relations"
+
+        args:
+            - months:
+                help: "Number of months"
+                short: "m"
+                long: "months"
+                required: true 
+                takes_value: true
+            - pairs:
+                help: "Rabbit pairs per litter"
+                short: "p"
+                long: "pairs"
+                required: true
+                takes_value: true
+        
+    - fibd:
+        about: "Mortal Fibonacci Rabbits"
+        long_about: "Mortal Fibonacci Rabbits\n\nGiven 2 numbers, n and m, this algorithm will 
+            determine the number of rabbit pairs that will be alive after the n-th month, if all 
+            rabbits live for m months."
+        
+        args:
+            - months:
+                help: "Number of months"
+                short: "m"
+                long: "months"
+                required: true 
+                takes_value: true
+            - life_expectancy:
+                help: "Life expectancy of a rabbit pair"
+                short: "l"
+                long: "life_expectancy"
+                required: true 
+                takes_value: true
+
+    - hamm:
+        about: "Counting Point Mutations"
+
+        args: 
+            - string_1: 
+                help: "First string"
+                index: 1
+                required: true 
+            - string_2:
+                help: "Second string"
+                index: 2
+                required: true
+    
+    - perm:
+        about: "Enumerating Gene Orders"
+
+        args:
+            - permutation_length:
+                help: "A number representing the length of each permutation"
+                index: 1
+                required: true
+    
+    - sign:
+        about: "Enumerating Oriented Gene Orderings"
+
+        args:
+            - permutation_length:
+                help: "A number representing the length of each permutation"
+                index: 1
+                required: true
+    
+    - subs:
+        about: "Finding a Motif in DNA"
+
+        args:
+            - dna_string:
+                help: "A DNA string, up to 1000 kbp in length"
+                index: 1 
+                required: true
+            - substring:
+                help: "A possible substring of the specified DNA string"
+                index: 2
+                required: true
+
+    - mrna:
+        about: "Inferring mRNA from Protein"
+
+        args:
+            - protein_string:
+                help: "A protein string, at most 1000 amino acids in length"
+                index: 1
+                required: true

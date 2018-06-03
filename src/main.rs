@@ -1,11 +1,13 @@
 #[macro_use]
 extern crate clap;
+extern crate fib;
 extern crate gen_str;
-use clap::App;
-use gen_str::*;
-use std::io;
+extern crate perm;
+extern crate rosalind;
 
-fn main() -> io::Result<()> {
+use clap::App;
+
+fn main() -> Result<(), Box<std::error::Error>> {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).get_matches();
 
@@ -15,6 +17,36 @@ fn main() -> io::Result<()> {
         ("revc", Some(revc_matches)) => runners::revc(revc_matches.value_of("dna_string").unwrap()),
         ("prot", Some(prot_matches)) => runners::prot(prot_matches.value_of("rna_file").unwrap()),
         ("gc", Some(gc_matches)) => runners::gc(gc_matches.value_of("dna_file").unwrap()),
+        ("fib", Some(fib_matches)) => runners::fib(
+            fib_matches.value_of("months").unwrap().parse::<u8>()?,
+            fib_matches.value_of("pairs").unwrap().parse::<u8>()?,
+        ),
+        ("fibd", Some(fibd_matches)) => runners::fibd(
+            fibd_matches.value_of("months").unwrap().parse::<u8>()?,
+            fibd_matches
+                .value_of("life_expectancy")
+                .unwrap()
+                .parse::<u8>()?,
+        ),
+        ("hamm", Some(hamm_matches)) => runners::hamm(
+            hamm_matches.value_of("string_1").unwrap(),
+            hamm_matches.value_of("string_2").unwrap(),
+        ),
+        ("perm", Some(perm_matches)) => runners::perm(perm_matches
+            .value_of("permutation_length")
+            .unwrap()
+            .parse::<u8>()?),
+        ("sign", Some(sign_matches)) => runners::sign(sign_matches
+            .value_of("permutation_length")
+            .unwrap()
+            .parse::<u8>()?),
+        ("subs", Some(subs_matches)) => runners::subs(
+            subs_matches.value_of("dna_string").unwrap(),
+            subs_matches.value_of("substring").unwrap(),
+        ),
+        ("mrna", Some(mrna_matches)) => {
+            runners::mrna(mrna_matches.value_of("protein_string").unwrap())
+        }
         ("", None) => println!("No subcommand was used"),
         _ => unreachable!(),
     }
@@ -23,7 +55,10 @@ fn main() -> io::Result<()> {
 }
 
 mod runners {
-    use super::*;
+    use fib::*;
+    use gen_str::*;
+    use perm::*;
+    use rosalind::*;
     use std::fs::File;
     use std::io::prelude::*;
 
@@ -84,5 +119,80 @@ mod runners {
                 println!("{}", fdna.gc_content())
             })
             .collect::<Vec<_>>();
+    }
+
+    pub fn fib(months: u8, pairs: u8) {
+        println!(
+            "{:?}\n",
+            population(pairs as usize)
+                .nth((months - 1) as usize)
+                .unwrap()
+        );
+    }
+
+    pub fn fibd(months: u8, life_expectancy: u8) {
+        println!(
+            "{:?}\n",
+            population_with_moratilty(1, life_expectancy as usize)
+                .nth((months - 1) as usize)
+                .unwrap()
+        );
+    }
+
+    pub fn hamm(string_1: &str, string_2: &str) {
+        println!("{}", hamming_distance(string_1, string_2));
+    }
+
+    pub fn perm(permutation_length: u8) {
+        // TODO: writeln! + stdout lock
+        println!("{}", factorial(permutation_length as u64));
+        for code in permutations((1i64..permutation_length as i64 + 1).collect::<Vec<_>>()) {
+            println!("{}", code);
+        }
+    }
+
+    pub fn sign(permutation_length: u8) {
+        // TODO: writeln! + stdout lock
+        let permutation_length_pow2 = 2u64.pow(permutation_length as u32);
+
+        // Number of outputs
+        println!(
+            "{}",
+            factorial(permutation_length as u64) * permutation_length_pow2
+        );
+
+        // Permutations
+        for code in permutations((1i64..permutation_length as i64 + 1).collect::<Vec<_>>()) {
+            let vec = &*code; // Deref from wrapper
+            for binary in 0..permutation_length_pow2 {
+                let binary = generate_binary(binary, permutation_length as usize);
+                let zipped = binary.iter().zip(vec.iter()).collect::<Vec<_>>();
+                let perm = zipped
+                    .into_iter()
+                    .map(|val| *val.0 * *val.1 as i64)
+                    .collect::<Vec<_>>();
+                println!("{}", VecWrapper::new(perm));
+            }
+        }
+    }
+
+    pub fn subs(dna_string: &str, substring: &str) {
+        println!(
+            "{:?}",
+            substring_locations(dna_string, substring)
+                .iter()
+                .map(|x| (x + 1).to_string())
+                .collect::<Vec<_>>()
+                .join(" ")
+        );
+    }
+
+    pub fn mrna(protein_string: &str) {
+        println!(
+            "{}",
+            Protein::new(protein_string)
+                .rna_count(1_000_000)
+                .remainder()
+        );
     }
 }

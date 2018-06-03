@@ -43,25 +43,6 @@
 //! ```bash
 //! $ cargo run --release --example <EXAMPLE_NAME>
 //! ```
-//!
-//! A list of examples is given below. The example names correspond to the short names assigned to the problems on the Rosalind project website.
-//!
-//! For convenience, the command used to run the examples is also provided next to the example name.
-//!
-//! Name | Command | Input
-//! --- | --- | ---
-//! `dna` | `cargo run --release --example dna` | DNA string
-//! `rna` | `cargo run --release --example rna` | DNA string
-//! `revc` | `cargo run --release --example revc` | DNA string
-//! `fib` | `cargo run --release --example fib` | 2 numbers
-//! `fibd` | `cargo run --release --example fibd` | 2 numbers
-//! `hamm` | `cargo run --release --example hamm` | 2 strings
-//! `perm` | `cargo run --release --example perm` | Number
-//! `sign` | `cargo run --release --example sign` | Number
-//! `gc` | `cargo run --release --example gc gc.txt` | `gc.txt` at root
-//! `prot` | `cargo run --release --example prot prot.txt` | `prot.txt` at root
-//! `subs` | `cargo run --release --example subs` | 2 strings
-//! `mrna` | `cargo run --release --example mrna` | Protein string
 
 // //////// //
 // Funtions //
