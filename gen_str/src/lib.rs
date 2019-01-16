@@ -174,10 +174,10 @@ impl DNA {
     // Return the complement for each DNA character
     fn complement(symbol: char) -> char {
         DNA_SYMBOLS[DNA_SYMBOLS
-                        .iter()
-                        .rev()
-                        .position(|&x| x == symbol)
-                        .expect("Invalid DNA string")]
+            .iter()
+            .rev()
+            .position(|&x| x == symbol)
+            .expect("Invalid DNA string")]
     }
 }
 

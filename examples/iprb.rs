@@ -1,7 +1,7 @@
 extern crate gene;
 
-use std::io;
 use gene::*;
+use std::io;
 
 fn main() {
     let mut pop_counts = String::new();

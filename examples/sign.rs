@@ -1,8 +1,8 @@
 extern crate perm;
 
+use perm::*;
 use std::io;
 use std::str::FromStr;
-use perm::*;
 
 fn main() {
     let mut max_permute_string = String::new();

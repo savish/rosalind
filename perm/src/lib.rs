@@ -1,8 +1,8 @@
 //! Permutations of vectors
 
 use std::fmt;
-use std::str::FromStr;
 use std::ops::Deref;
+use std::str::FromStr;
 
 fn generate_lehmer_code(from: i64, pad: usize) -> Vec<i64> {
     let mut remainders: Vec<i64> = vec![];
@@ -28,7 +28,11 @@ fn generate_lehmer_code(from: i64, pad: usize) -> Vec<i64> {
 }
 
 fn replace_zeros(input: i64) -> i64 {
-    if input == 0 { -1 } else { input }
+    if input == 0 {
+        -1
+    } else {
+        input
+    }
 }
 
 pub fn generate_binary(from: u64, pad_to: usize) -> Vec<i64> {

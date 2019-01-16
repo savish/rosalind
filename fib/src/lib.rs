@@ -77,8 +77,8 @@ impl Iterator for Population {
             } else if self.index < life_expectancy {
                 new_next = (*self.counts)[0] + (*self.counts)[1] * self.litter - 1;
             } else {
-                new_next = (*self.counts)[0] + (*self.counts)[1] * self.litter -
-                    (*self.counts).last().unwrap();
+                new_next = (*self.counts)[0] + (*self.counts)[1] * self.litter
+                    - (*self.counts).last().unwrap();
             }
         } else {
             new_next = (*self.counts)[0] + (*self.counts)[1] * self.litter;

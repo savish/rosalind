@@ -32,14 +32,18 @@ fn main() -> Result<(), Box<std::error::Error>> {
             hamm_matches.value_of("string_1").unwrap(),
             hamm_matches.value_of("string_2").unwrap(),
         ),
-        ("perm", Some(perm_matches)) => runners::perm(perm_matches
-            .value_of("permutation_length")
-            .unwrap()
-            .parse::<u8>()?),
-        ("sign", Some(sign_matches)) => runners::sign(sign_matches
-            .value_of("permutation_length")
-            .unwrap()
-            .parse::<u8>()?),
+        ("perm", Some(perm_matches)) => runners::perm(
+            perm_matches
+                .value_of("permutation_length")
+                .unwrap()
+                .parse::<u8>()?,
+        ),
+        ("sign", Some(sign_matches)) => runners::sign(
+            sign_matches
+                .value_of("permutation_length")
+                .unwrap()
+                .parse::<u8>()?,
+        ),
         ("subs", Some(subs_matches)) => runners::subs(
             subs_matches.value_of("dna_string").unwrap(),
             subs_matches.value_of("substring").unwrap(),
