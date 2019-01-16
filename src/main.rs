@@ -112,7 +112,7 @@ mod runners {
 
         let fdna_array: Vec<FASTA> = fasta_dna_strings
             .split('>')
-            .filter(|fdna| fdna.len() > 0)
+            .filter(|fdna| !fdna.is_empty())
             .map(|fdna| fdna_from_string(fdna))
             .collect();
 
@@ -146,24 +146,24 @@ mod runners {
 
     pub fn perm(permutation_length: u8) {
         // TODO: writeln! + stdout lock
-        println!("{}", factorial(permutation_length as u64));
-        for code in permutations((1i64..permutation_length as i64 + 1).collect::<Vec<_>>()) {
+        println!("{}", factorial(u64::from(permutation_length)));
+        for code in permutations((1i64..=i64::from(permutation_length)).collect::<Vec<_>>()) {
             println!("{}", code);
         }
     }
 
     pub fn sign(permutation_length: u8) {
         // TODO: writeln! + stdout lock
-        let permutation_length_pow2 = 2u64.pow(permutation_length as u32);
+        let permutation_length_pow2 = 2u64.pow(u32::from(permutation_length));
 
         // Number of outputs
         println!(
             "{}",
-            factorial(permutation_length as u64) * permutation_length_pow2
+            factorial(u64::from(permutation_length)) * permutation_length_pow2
         );
 
         // Permutations
-        for code in permutations((1i64..permutation_length as i64 + 1).collect::<Vec<_>>()) {
+        for code in permutations((1i64..=i64::from(permutation_length)).collect::<Vec<_>>()) {
             let vec = &*code; // Deref from wrapper
             for binary in 0..permutation_length_pow2 {
                 let binary = generate_binary(binary, permutation_length as usize);

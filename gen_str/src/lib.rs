@@ -72,7 +72,7 @@ pub trait GeneticString {
         let gc =
             (count_character('G', &self.content()) + count_character('C', &self.content())) as i32;
         let dna_len = self.length() as i32;
-        (gc as f64 / dna_len as f64) * 100f64
+        (f64::from(gc) / f64::from(dna_len)) * 100f64
     }
     // fn symbol_count(&self) -> Vec<usize>;
 }
@@ -148,7 +148,7 @@ impl DNA {
         let DNA(ref dna_string) = *self;
         DNA(reverse_string(&dna_string)
             .chars()
-            .map(|symbol| DNA::complement(symbol))
+            .map(DNA::complement)
             .collect::<String>())
     }
 
@@ -201,10 +201,7 @@ impl From<RNA> for DNA {
     fn from(rna: RNA) -> Self {
         let RNA(ref rna_string) = rna;
 
-        let dna_string = rna_string
-            .chars()
-            .map(|symbol| get_dna_symbol(symbol))
-            .collect::<String>();
+        let dna_string = rna_string.chars().map(get_dna_symbol).collect::<String>();
 
         DNA::new(&dna_string)
     }
@@ -252,10 +249,7 @@ impl From<DNA> for RNA {
     fn from(dna: DNA) -> Self {
         let DNA(ref dna_string) = dna;
 
-        let rna_string = dna_string
-            .chars()
-            .map(|symbol| get_rna_symbol(symbol))
-            .collect::<String>();
+        let rna_string = dna_string.chars().map(get_rna_symbol).collect::<String>();
 
         RNA::new(&rna_string)
     }
@@ -388,11 +382,7 @@ impl GeneticString for FASTA {
 
 // Count the number of times a character occurs in the given string
 fn count_character(character: char, in_string: &str) -> usize {
-    in_string
-        .chars()
-        .filter(|ch| *ch == character)
-        .collect::<Vec<_>>()
-        .len()
+    in_string.chars().filter(|ch| *ch == character).count()
 }
 
 // Reverse a given string
@@ -515,12 +505,12 @@ impl Modulo {
     }
 
     /// Returns the remainder part of a modulo number
-    pub fn remainder(&self) -> u32 {
+    pub fn remainder(self) -> u32 {
         self.remainder
     }
 
     /// Returns the dividend part of a modulo number
-    pub fn dividend(&self) -> u32 {
+    pub fn dividend(self) -> u32 {
         self.dividend
     }
 }

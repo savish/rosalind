@@ -11,8 +11,8 @@ fn generate_lehmer_code(from: i64, pad: usize) -> Vec<i64> {
 
     while quot != 0i64 {
         remainders.push(quot % current_digit);
-        quot = quot / current_digit;
-        current_digit = current_digit + 1;
+        quot /= current_digit;
+        current_digit += 1;
     }
 
     let remainders_len = if remainders.len() < pad {
@@ -53,9 +53,9 @@ pub fn generate_binary(from: u64, pad_to: usize) -> Vec<i64> {
 /// ```
 pub fn factorial(num: u64) -> u64 {
     if num == 0 || num == 1 {
-        return 1u64;
+        1u64
     } else {
-        return num * factorial(num - 1);
+        num * factorial(num - 1)
     }
 }
 
@@ -106,7 +106,7 @@ impl Iterator for Permutation {
                 .map(|i| _base_vector.remove((*i) as usize))
                 .collect::<Vec<_>>();
 
-            self.curr = self.curr + 1;
+            self.curr += 1;
             Some(VecWrapper::new(perm))
         } else {
             None

@@ -88,7 +88,7 @@ impl Organism {
     /// let org = Organism::new(Allelle::D, Allelle::R);
     /// assert!(org.is_dominant());
     /// ```
-    pub fn is_dominant(&self) -> bool {
+    pub fn is_dominant(self) -> bool {
         self.0 == Allelle::D || self.1 == Allelle::D
     }
 
@@ -101,7 +101,7 @@ impl Organism {
     /// let org = Organism::new(Allelle::R, Allelle::R);
     /// assert!(org.is_recessive());
     /// ```
-    pub fn is_recessive(&self) -> bool {
+    pub fn is_recessive(self) -> bool {
         self.0 == Allelle::R && self.1 == Allelle::R
     }
 
@@ -119,13 +119,12 @@ impl Organism {
     ///
     /// assert_eq!(pt1.has_dominant_child(&pt2), 0.75);
     /// ```
-    pub fn has_dominant_child(&self, other: &Organism) -> f64 {
-        let children = *self * *other;
-        let dominant = children.iter().fold(
-            0u32,
-            |acc, ch| if ch.is_dominant() { acc + 1 } else { acc + 0 },
-        );
-        dominant as f64 / children.len() as f64
+    pub fn has_dominant_child(self, other: Organism) -> f64 {
+        let children = self * other;
+        let dominant = children
+            .iter()
+            .fold(0u32, |acc, ch| if ch.is_dominant() { acc + 1 } else { acc });
+        f64::from(dominant) / children.len() as f64
     }
 }
 
@@ -251,16 +250,16 @@ impl Population {
     ///
     /// assert_eq!(pop.select_parents(&parents.0, &parents.1), 1f64 / 15f64);
     /// ```
-    pub fn select_parents(&self, p1: &Organism, p2: &Organism) -> f64 {
+    pub fn select_parents(&self, p1: Organism, p2: Organism) -> f64 {
         let (prob_p1, new_pop) = self.select_organism(p1);
         let (prob_p2, _) = new_pop.select_organism(p2);
         prob_p1 * prob_p2
     }
 
-    fn select_organism(&self, org: &Organism) -> (f64, Population) {
+    fn select_organism(&self, org: Organism) -> (f64, Population) {
         match &org.to_string()[..] {
             "DD" => (
-                self.count_homozygous_dominant() as f64 / self.size() as f64,
+                f64::from(self.count_homozygous_dominant()) / f64::from(self.size()),
                 Population(
                     self.count_homozygous_dominant() - 1,
                     self.count_heterozygous(),
@@ -268,7 +267,7 @@ impl Population {
                 ),
             ),
             "DR" => (
-                self.count_heterozygous() as f64 / self.size() as f64,
+                f64::from(self.count_heterozygous()) / f64::from(self.size()),
                 Population(
                     self.count_homozygous_dominant(),
                     self.count_heterozygous() - 1,
@@ -276,14 +275,14 @@ impl Population {
                 ),
             ),
             "RR" => (
-                self.count_homozygous_recessive() as f64 / self.size() as f64,
+                f64::from(self.count_homozygous_recessive()) / f64::from(self.size()),
                 Population(
                     self.count_homozygous_dominant(),
                     self.count_heterozygous(),
                     self.count_homozygous_recessive() - 1,
                 ),
             ),
-            _ => (0f64, self.clone()),
+            _ => (0f64, *self),
         }
     }
 }

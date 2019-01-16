@@ -25,7 +25,7 @@ impl<T: Copy> Queue<T> {
         }
     }
 
-    fn from_vec(vec: Vec<T>, initialize_to: T) -> Queue<T> {
+    fn from_vec(vec: &[T], initialize_to: T) -> Queue<T> {
         let size = vec.len();
         Queue {
             queue: vec.to_vec(),
@@ -38,7 +38,7 @@ impl<T: Copy> Queue<T> {
     // vector).
     // Since the queue size is fixed, this will also remove the element at
     // the 'front' of the queue (last element in the vector)
-    fn push(&mut self, val: T) -> () {
+    fn push(&mut self, val: T) {
         self.queue.insert(0usize, val);
         self.queue.pop();
     }
@@ -84,7 +84,7 @@ impl Iterator for Population {
             new_next = (*self.counts)[0] + (*self.counts)[1] * self.litter;
         }
         self.counts.push(new_next);
-        self.index = self.index + 1;
+        self.index += 1;
         Some(self.counts[1])
     }
 }
@@ -92,7 +92,7 @@ impl Iterator for Population {
 /// Creates a population iterator
 pub fn population(litter: usize) -> Population {
     Population {
-        counts: Queue::from_vec(vec![1usize, 0], 0usize),
+        counts: Queue::from_vec(&[1usize, 0], 0usize),
         life_expectancy: None,
         litter,
         index: 0usize,
@@ -105,7 +105,7 @@ pub fn population_with_moratilty(litter: usize, life_expectancy: usize) -> Popul
     let mut counts = Queue::new(life_expectancy + 1, 0usize);
     counts.push(1usize);
     Population {
-        counts: counts,
+        counts,
         life_expectancy: Some(life_expectancy),
         litter,
         index: 0usize,
