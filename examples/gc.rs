@@ -29,11 +29,8 @@ fn main() {
         .map(|fdna| fdna_from_string(fdna))
         .collect();
 
-    fdna_array
-        .iter()
-        .map(|fdna| {
-            println!("{}", fdna.label());
-            println!("{}", fdna.gc_content())
-        })
-        .collect::<Vec<_>>();
+    fdna_array.iter().for_each(|fdna| {
+        println!("{}", fdna.label());
+        println!("{}", fdna.gc_content())
+    });
 }
