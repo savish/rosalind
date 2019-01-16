@@ -117,7 +117,7 @@ impl Organism {
     /// let pt1 = Organism::heterozygous();
     /// let pt2 = Organism::heterozygous();
     ///
-    /// assert_eq!(pt1.has_dominant_child(&pt2), 0.75);
+    /// assert_eq!(pt1.has_dominant_child(pt2), 0.75);
     /// ```
     pub fn has_dominant_child(self, other: Organism) -> f64 {
         let children = self * other;
@@ -248,7 +248,7 @@ impl Population {
     /// let pop = Population::new(2, 2, 2);
     /// let parents = (Organism::heterozygous(), Organism::heterozygous());
     ///
-    /// assert_eq!(pop.select_parents(&parents.0, &parents.1), 1f64 / 15f64);
+    /// assert_eq!(pop.select_parents(parents.0, parents.1), 1f64 / 15f64);
     /// ```
     pub fn select_parents(&self, p1: Organism, p2: Organism) -> f64 {
         let (prob_p1, new_pop) = self.select_organism(p1);
