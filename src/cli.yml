@@ -4,145 +4,174 @@ author: "Alan K <afksavish@gmail.com>"
 about: "Solutions to the Rosalind Project problem set"
 
 settings:
-    - ColoredHelp
-    - SubcommandRequiredElseHelp
+  - ColoredHelp
+  - SubcommandRequiredElseHelp
 
 subcommands:
-    - dna:
-        about: "Counting DNA Nucleotides"
-        long_about: "Given a DNA string, this returns four integers (separated by spaces) that 
-            represent the respective number of times that the symbols 'A', 'C', 'G', and 'T' occur 
-            in the source string."
-        
-        args:
-            - dna_string:
-                help: "A DNA string, upto 1000 nucleotides in length."
-                index: 1
-                required: true
-        
-    - rna: 
-        about: "Transcribing DNA into RNA"
-        long_about: "This returns the transcribed RNA string of a given DNA string."
-        
-        args:
-            - dna_string:
-                help: "A DNA string, upto 1000 nucleotides in length."
-                index: 1
-                required: true
-    
-    - revc:
-        about: "Complementing a Strand of DNA"
-        
-        args:
-            - dna_string:
-                help: "A DNA string, upto 1000 nucleotides in length."
-                index: 1
-                required: true
-    
-    - prot:
-        about: "Translating RNA into Protein"
+  - dna:
+      about: "Counting DNA Nucleotides"
+      long_about:
+        "Given a DNA string, this returns four integers (separated by spaces) that
+        represent the respective number of times that the symbols 'A', 'C', 'G', and 'T' occur
+        in the source string."
 
-        args:
-            - rna_file:
-                help: "Text file containing an RNA string"
-                index: 1
-                required: true
+      args:
+        - dna_string:
+            help: "A DNA string, upto 1000 nucleotides in length."
+            index: 1
+            required: true
 
-    - gc:
-        about: "Computing GC Content"
+  - rna:
+      about: "Transcribing DNA into RNA"
+      long_about: "This returns the transcribed RNA string of a given DNA string."
 
-        args:
-            - dna_file:
-                help: "Text file containing DNA strings in FASTA format"
-                index: 1
-                required: true
+      args:
+        - dna_string:
+            help: "A DNA string, upto 1000 nucleotides in length."
+            index: 1
+            required: true
 
-    - fib:
-        about: "Rabbits and Recurrence Relations"
+  - revc:
+      about: "Complementing a Strand of DNA"
 
-        args:
-            - months:
-                help: "Number of months"
-                short: "m"
-                long: "months"
-                required: true 
-                takes_value: true
-            - pairs:
-                help: "Rabbit pairs per litter"
-                short: "p"
-                long: "pairs"
-                required: true
-                takes_value: true
-        
-    - fibd:
-        about: "Mortal Fibonacci Rabbits"
-        long_about: "Mortal Fibonacci Rabbits\n\nGiven 2 numbers, n and m, this algorithm will 
-            determine the number of rabbit pairs that will be alive after the n-th month, if all 
-            rabbits live for m months."
-        
-        args:
-            - months:
-                help: "Number of months"
-                short: "m"
-                long: "months"
-                required: true 
-                takes_value: true
-            - life_expectancy:
-                help: "Life expectancy of a rabbit pair"
-                short: "l"
-                long: "life_expectancy"
-                required: true 
-                takes_value: true
+      args:
+        - dna_string:
+            help: "A DNA string, upto 1000 nucleotides in length."
+            index: 1
+            required: true
 
-    - hamm:
-        about: "Counting Point Mutations"
+  - prot:
+      about: "Translating RNA into Protein"
 
-        args: 
-            - string_1: 
-                help: "First string"
-                index: 1
-                required: true 
-            - string_2:
-                help: "Second string"
-                index: 2
-                required: true
-    
-    - perm:
-        about: "Enumerating Gene Orders"
+      args:
+        - rna_file:
+            help: "Text file containing an RNA string"
+            index: 1
+            required: true
 
-        args:
-            - permutation_length:
-                help: "A number representing the length of each permutation"
-                index: 1
-                required: true
-    
-    - sign:
-        about: "Enumerating Oriented Gene Orderings"
+  - gc:
+      about: "Computing GC Content"
 
-        args:
-            - permutation_length:
-                help: "A number representing the length of each permutation"
-                index: 1
-                required: true
-    
-    - subs:
-        about: "Finding a Motif in DNA"
+      args:
+        - dna_file:
+            help: "Text file containing DNA strings in FASTA format"
+            index: 1
+            required: true
 
-        args:
-            - dna_string:
-                help: "A DNA string, up to 1000 kbp in length"
-                index: 1 
-                required: true
-            - substring:
-                help: "A possible substring of the specified DNA string"
-                index: 2
-                required: true
+  - fib:
+      about: "Rabbits and Recurrence Relations"
+      long_about:
+        "Enter 2 numbers, m and p. The algorithm will determine the total number of
+        rabbit pairs that will be present after m months, if we begin with 1 pair and in each
+        generation, every pair of reproduction-age rabbits produces a litter of p rabbit
+        pairs.\n"
 
-    - mrna:
-        about: "Inferring mRNA from Protein"
+      args:
+        - months:
+            help: "Number of months"
+            short: "m"
+            long: "months"
+            required: true
+            takes_value: true
+        - pairs:
+            help: "Rabbit pairs per litter"
+            short: "p"
+            long: "pairs"
+            required: true
+            takes_value: true
 
-        args:
-            - protein_string:
-                help: "A protein string, at most 1000 amino acids in length"
-                index: 1
-                required: true
+  - fibd:
+      about: "Mortal Fibonacci Rabbits"
+      long_about:
+        "Mortal Fibonacci Rabbits\n\nGiven 2 numbers, m and l, this algorithm will
+        determine the number of rabbit pairs that will be alive after the m-th month, if all
+        rabbits live for l months."
+
+      args:
+        - months:
+            help: "Number of months"
+            short: "m"
+            long: "months"
+            required: true
+            takes_value: true
+        - life_expectancy:
+            help: "Life expectancy of a rabbit pair"
+            short: "l"
+            long: "life_expectancy"
+            required: true
+            takes_value: true
+
+  - hamm:
+      about: "Counting Point Mutations"
+
+      args:
+        - string_1:
+            help: "First string"
+            index: 1
+            required: true
+        - string_2:
+            help: "Second string"
+            index: 2
+            required: true
+
+  - perm:
+      about: "Enumerating Gene Orders"
+
+      args:
+        - permutation_length:
+            help: "A number representing the length of each permutation"
+            index: 1
+            required: true
+
+  - sign:
+      about: "Enumerating Oriented Gene Orderings"
+
+      args:
+        - permutation_length:
+            help: "A number representing the length of each permutation"
+            index: 1
+            required: true
+
+  - subs:
+      about: "Finding a Motif in DNA"
+
+      args:
+        - dna_string:
+            help: "A DNA string, up to 1000 kbp in length"
+            index: 1
+            required: true
+        - substring:
+            help: "A possible substring of the specified DNA string"
+            index: 2
+            required: true
+
+  - mrna:
+      about: "Inferring mRNA from Protein"
+
+      args:
+        - protein_string:
+            help: "A protein string, at most 1000 amino acids in length"
+            index: 1
+            required: true
+
+  - iprb:
+      about: "Introduction to Mendelian Inheritance"
+      long_about:
+        "Given three positive integers, representing the number of organisms in a
+        population exhibiting homozygous dominant, recessive or heterozygous traits for a factor,
+        this determines the probability that the offspring of two randomly selected mating
+        organisms will possess a dominant allele."
+
+      args:
+        - homozygous_d:
+            help: "Number of homozygous dominant organisms"
+            index: 1
+            required: true
+        - heterozygous:
+            help: "Number of heterozygous organisms"
+            index: 2
+            required: true
+        - homozygous_r:
+            help: "Number of homozygous recessive organisms"
+            index: 3
+            required: true

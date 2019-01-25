@@ -1,6 +1,0 @@
-[package]
-name = "gen_str"
-version = "0.1.0"
-authors = ["Alan Kavishe <alan@filteris.co.za>"]
-
-[dependencies]

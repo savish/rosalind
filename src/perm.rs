@@ -47,7 +47,7 @@ pub fn generate_binary(from: u64, pad_to: usize) -> Vec<i64> {
 /// # Example
 ///
 /// ```
-/// use perm::*;
+/// use rosalind::perm::*;
 ///
 /// assert_eq!(factorial(5u64), 120u64);
 /// ```

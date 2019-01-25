@@ -32,7 +32,7 @@ pub trait GeneticString {
     ///
     /// # Example
     /// ```
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let dna = DNA::new("ACGT");
     /// dna.content();  // "ACGT"
     /// # assert_eq!(dna.content(), "ACGT")
@@ -45,7 +45,7 @@ pub trait GeneticString {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let dna = DNA::new("ACGTACGT");
     /// dna.length();  // 8
     /// # assert_eq!(dna.length(), 8)
@@ -63,7 +63,7 @@ pub trait GeneticString {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let dna = DNA::new("ACGTCGCGTA");
     /// dna.gc_content();  // 60.0 (percentage)
     /// # assert_eq!(dna.gc_content(), 60f64);
@@ -99,7 +99,7 @@ pub struct Protein(String);
 ///
 /// # Example
 /// ```rust
-/// # use gen_str::*;
+/// # use rosalind::gen_str::*;
 /// let fasta = FASTA::new(DNA::new("ACGT"), "DNA_1");
 /// fasta.label();      // "DNA_1"
 /// # assert_eq!(fasta.label(), "DNA_1");
@@ -127,7 +127,7 @@ impl DNA {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::DNA;
+    /// # use rosalind::gen_str::DNA;
     /// let dna = DNA::new("ACGT");
     /// ```
     pub fn new(dna_string: &str) -> DNA {
@@ -139,7 +139,7 @@ impl DNA {
     /// # Example
     ///
     /// ```
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let dna = DNA::new("AACGGT");
     /// dna.reverse_complement().content(); // "ACCGTT"
     /// # assert_eq!(dna.reverse_complement().content(), DNA::new("ACCGTT").content());
@@ -159,7 +159,7 @@ impl DNA {
     /// # Example
     ///
     /// ```
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let dna = DNA::new("ACGGTAAC");
     /// dna.count_symbols(); // [3, 2, 2, 1] (Vector)
     /// # assert_eq!(dna.count_symbols(), vec![3, 2, 2, 1]);
@@ -193,7 +193,7 @@ impl From<RNA> for DNA {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let rna = RNA::new("ACGUUGCA");
     /// let dna = DNA::from(rna);  // "ACGTTGCA"
     /// # assert_eq!(dna.content(), "ACGTTGCA");
@@ -221,7 +221,7 @@ impl RNA {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::RNA;
+    /// # use rosalind::gen_str::RNA;
     /// let rna = RNA::new("ACGU");
     /// ```
     pub fn new(rna_string: &str) -> RNA {
@@ -241,7 +241,7 @@ impl From<DNA> for RNA {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let dna = DNA::new("CGTACGATCG");
     /// let rna = RNA::from(dna);  // "CGUACGAUCG"
     /// # assert_eq!(rna.content(), "CGUACGAUCG");
@@ -269,7 +269,7 @@ impl Protein {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::Protein;
+    /// # use rosalind::gen_str::Protein;
     /// let protein = Protein::new("MTSMSS");
     /// ```
     pub fn new(protein_string: &str) -> Protein {
@@ -280,7 +280,7 @@ impl Protein {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let protein = Protein::new("MA");
     /// assert_eq!(protein.rna_count(1000), Modulo::new(12, 1000));
     /// ```
@@ -309,7 +309,7 @@ impl From<RNA> for Protein {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let rna = RNA::new("AAGUGUCUGGCUUGAAGU");
     /// let protein = Protein::from(rna);  // "KCLAS"
     /// # assert_eq!(protein.content(), "KCLAS");
@@ -346,7 +346,7 @@ impl FASTA {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let fasta = FASTA::new(DNA::new("ACGTTGCATC"), "DNA_1");
     /// ```
     pub fn new<T: GeneticString + 'static>(gen_string: T, label: &str) -> FASTA {
@@ -360,7 +360,7 @@ impl FASTA {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::*;
+    /// # use rosalind::gen_str::*;
     /// let fasta = FASTA::new(DNA::new("ACGTTGCATC"), "DNA_1");
     /// fasta.label(); // "DNA_1"
     /// # assert_eq!(fasta.label(), "DNA_1");
@@ -478,7 +478,7 @@ impl Modulo {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::Modulo;
+    /// # use rosalind::gen_str::Modulo;
     /// let modulo = Modulo::new(3, 5);
     /// # assert_eq!(modulo.remainder(), 3);
     /// # assert_eq!(modulo.dividend(), 5);
@@ -493,7 +493,7 @@ impl Modulo {
     ///
     /// # Example
     /// ```rust
-    /// # use gen_str::Modulo;
+    /// # use rosalind::gen_str::Modulo;
     /// let modulo = Modulo::from(32, 5);  // Modulo { 2, 5 }
     /// # assert_eq!(modulo, Modulo::new(2, 5));
     /// ```
@@ -523,7 +523,7 @@ impl Mul for Modulo {
     /// # Example
     ///
     /// ```rust
-    /// # use gen_str::Modulo;
+    /// # use rosalind::gen_str::Modulo;
     /// let mod1 = Modulo::from(23, 4);
     /// let mod2 = Modulo::from(67, 4);
     ///
@@ -533,7 +533,7 @@ impl Mul for Modulo {
     /// For instance, the code block below will panic.
     ///
     /// ```rust,should_panic
-    /// # use gen_str::Modulo;
+    /// # use rosalind::gen_str::Modulo;
     /// let mod1 = Modulo::from(23, 6);
     /// let mod2 = Modulo::from(67, 5);
     ///

@@ -1,8 +1,5 @@
 #[macro_use]
 extern crate clap;
-extern crate fib;
-extern crate gen_str;
-extern crate perm;
 extern crate rosalind;
 
 use clap::App;
@@ -51,6 +48,20 @@ fn main() -> Result<(), Box<std::error::Error>> {
         ("mrna", Some(mrna_matches)) => {
             runners::mrna(mrna_matches.value_of("protein_string").unwrap())
         }
+        ("iprb", Some(iprb_matches)) => runners::iprb(
+            iprb_matches
+                .value_of("homozygous_d")
+                .unwrap()
+                .parse::<u32>()?,
+            iprb_matches
+                .value_of("heterozygous")
+                .unwrap()
+                .parse::<u32>()?,
+            iprb_matches
+                .value_of("homozygous_r")
+                .unwrap()
+                .parse::<u32>()?,
+        ),
         ("", None) => println!("No subcommand was used"),
         _ => unreachable!(),
     }
@@ -59,10 +70,11 @@ fn main() -> Result<(), Box<std::error::Error>> {
 }
 
 mod runners {
-    use fib::*;
-    use gen_str::*;
-    use perm::*;
-    use rosalind::*;
+    use rosalind::fib::*;
+    use rosalind::gen_str::*;
+    use rosalind::gene::*;
+    use rosalind::perm::*;
+    // use rosalind::*;
     use std::fs::File;
     use std::io::prelude::*;
 
@@ -141,7 +153,7 @@ mod runners {
     }
 
     pub fn hamm(string_1: &str, string_2: &str) {
-        println!("{}", hamming_distance(string_1, string_2));
+        println!("{}", rosalind::hamming_distance(string_1, string_2));
     }
 
     pub fn perm(permutation_length: u8) {
@@ -180,7 +192,7 @@ mod runners {
     pub fn subs(dna_string: &str, substring: &str) {
         println!(
             "{:?}",
-            substring_locations(dna_string, substring)
+            rosalind::substring_locations(dna_string, substring)
                 .iter()
                 .map(|x| (x + 1).to_string())
                 .collect::<Vec<_>>()
@@ -195,5 +207,32 @@ mod runners {
                 .rna_count(1_000_000)
                 .remainder()
         );
+    }
+
+    pub fn iprb(homozygous_d: u32, heterozygous: u32, homozygous_r: u32) {
+        let population = rosalind::gene::Population::new(homozygous_d, heterozygous, homozygous_r);
+
+        // Step 1: generate parent pairs
+        let parents = Organism::parents();
+
+        // Step 2: get probabilities of a dominant child from a parent pair
+        let dominant_probabilities = parents
+            .iter()
+            .map(|&(p1, p2)| p1.has_dominant_child(p2))
+            .collect::<Vec<_>>();
+
+        // Step 3: get probabilities of selecting the parent pairs from a population
+        let selection_probabilities = parents
+            .iter()
+            .map(|&(p1, p2)| population.select_parents(p1, p2))
+            .collect::<Vec<_>>();
+
+        // Step 4: zip, fold
+        let result = dominant_probabilities
+            .iter()
+            .zip(selection_probabilities.iter())
+            .fold(0f64, |acc, (p_d, p_s)| acc + p_d * p_s);
+
+        println!("{}", result);
     }
 }

@@ -44,6 +44,11 @@
 //! $ cargo run --release --example <EXAMPLE_NAME>
 //! ```
 
+pub mod fib;
+pub mod gen_str;
+pub mod gene;
+pub mod perm;
+
 // //////// //
 // Funtions //
 // //////// //

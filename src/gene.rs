@@ -39,7 +39,7 @@ impl Organism {
     ///
     /// # Example
     /// ```rust
-    /// use gene::{Organism, Allelle};
+    /// use rosalind::gene::{Organism, Allelle};
     ///
     /// let org = Organism::new(Allelle::D, Allelle::R);
     /// assert_eq!(org.to_string(), "DR");
@@ -83,7 +83,7 @@ impl Organism {
     ///
     /// # Example
     /// ```rust
-    /// use gene::{Organism, Allelle};
+    /// use rosalind::gene::{Organism, Allelle};
     ///
     /// let org = Organism::new(Allelle::D, Allelle::R);
     /// assert!(org.is_dominant());
@@ -96,7 +96,7 @@ impl Organism {
     ///
     /// # Example
     /// ```rust
-    /// use gene::{Organism, Allelle};
+    /// use rosalind::gene::{Organism, Allelle};
     ///
     /// let org = Organism::new(Allelle::R, Allelle::R);
     /// assert!(org.is_recessive());
@@ -112,7 +112,7 @@ impl Organism {
     ///
     /// # Example
     /// ```rust
-    /// use gene::*;
+    /// use rosalind::gene::*;
     ///
     /// let pt1 = Organism::heterozygous();
     /// let pt2 = Organism::heterozygous();
@@ -140,7 +140,7 @@ impl Mul for Organism {
     ///
     /// # Example
     /// ```rust
-    /// use gene::*;
+    /// use rosalind::gene::*;
     ///
     /// let parents = (Organism::heterozygous(), Organism::heterozygous());
     /// let expected_children = [
@@ -175,7 +175,7 @@ impl PartialEq for Organism {
     ///
     /// # Examples
     /// ```rust
-    /// use gene::*;
+    /// use rosalind::gene::*;
     /// let org1 = Organism::new(Allelle::D, Allelle::R);
     /// let org2 = Organism::new(Allelle::D, Allelle::R);
     /// let org3 = Organism::new(Allelle::R, Allelle::D);
@@ -230,7 +230,7 @@ impl Population {
     ///
     /// # Example
     /// ```rust
-    /// use gene::*;
+    /// use rosalind::gene::*;
     ///
     /// let pop = Population::new(3, 4, 5);
     /// assert_eq!(pop.size(), 12);
@@ -243,7 +243,7 @@ impl Population {
     ///
     /// # Example
     /// ```rust
-    /// use gene::*;
+    /// use rosalind::gene::*;
     ///
     /// let pop = Population::new(2, 2, 2);
     /// let parents = (Organism::heterozygous(), Organism::heterozygous());
@@ -292,7 +292,7 @@ impl Population {
 // /// # Example
 // ///
 // /// ```
-// /// use gene::{Organism, percent_dominant};
+// /// use rosalind::gene::{Organism, percent_dominant};
 // /// let parent = Organism::DR;
 // /// let population = parent.mate(Organism::DR);
 // /// assert_eq!(percent_dominant(&population), 0.75f64);
@@ -315,7 +315,7 @@ impl Population {
 //     /// # Example
 //     ///
 //     /// ```
-//     /// use gene::{Organism, Population};
+//     /// use rosalind::gene::{Organism, Population};
 //     /// let pop = Population::new(3, 4, 5);
 //     /// assert_eq!(pop.choose_organism_probability(Organism::DD), 0.25f64);
 //     /// ```
