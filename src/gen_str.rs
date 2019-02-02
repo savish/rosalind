@@ -10,8 +10,8 @@
 //! These strings can be labelled. The labelling format used in this project is the FASTA format,
 //! which uses whitespace to separate labels from strands.
 
+use modular::{modulo, Modular, Modulo};
 use std::fmt;
-use std::ops::Mul;
 
 // ///// //
 // Types //
@@ -277,18 +277,12 @@ impl Protein {
     }
 
     /// Determine the number of possible RNA strands that would form this protein string
-    ///
-    /// # Example
-    /// ```rust
-    /// # use rosalind::gen_str::*;
-    /// let protein = Protein::new("MA");
-    /// assert_eq!(protein.rna_count(1000), Modulo::new(12, 1000));
-    /// ```
-    pub fn rna_count(&self, modulo: u32) -> Modulo {
-        self.content().chars().fold(
-            Modulo::from(rna_codon(' ').len() as u32, modulo),
-            |acc, ch| acc * Modulo::from(rna_codon(ch).len() as u32, modulo),
-        )
+    pub fn rna_count(&self, modulus: u32) -> Modulo {
+        self.content()
+            .chars()
+            .fold(modulo!(rna_codon(' ').len() as i32, modulus), |acc, ch| {
+                acc * modulo!(rna_codon(ch).len() as i32, modulus)
+            })
     }
 }
 
@@ -452,99 +446,6 @@ fn rna_codon(amino_acid: char) -> Vec<&'static str> {
         'Y' => vec!["UAC", "UAU"],
         ' ' => vec!["UAG", "UGA", "UAA"],
         _ => panic!("Invalid amino acid"),
-    }
-}
-
-// ///// //
-// Types //
-// ///// //
-
-/// Holds the modulo representation of a number
-///
-/// In mathematics, `a` modulo `n` is the remainder obtained when `a` is divided by `n`. For
-/// instance **32** `mod` **6** = **2**
-///
-/// This struct stores the dividend and the remainder resulting from the above division. Therefore,
-/// based on the above calculation, the number **32** can be converted into `Modulo(2, 6)` where
-/// **2** is the remainder and **6** is the dividend.
-#[derive(Copy, Clone, Debug, PartialEq)]
-pub struct Modulo {
-    remainder: u32,
-    dividend: u32,
-}
-
-impl Modulo {
-    /// Return a new `Modulo` instance
-    ///
-    /// # Example
-    /// ```rust
-    /// # use rosalind::gen_str::Modulo;
-    /// let modulo = Modulo::new(3, 5);
-    /// # assert_eq!(modulo.remainder(), 3);
-    /// # assert_eq!(modulo.dividend(), 5);
-    pub fn new(remainder: u32, dividend: u32) -> Modulo {
-        Modulo {
-            remainder,
-            dividend,
-        }
-    }
-
-    /// Create a `Modulo` number from a regular one
-    ///
-    /// # Example
-    /// ```rust
-    /// # use rosalind::gen_str::Modulo;
-    /// let modulo = Modulo::from(32, 5);  // Modulo { 2, 5 }
-    /// # assert_eq!(modulo, Modulo::new(2, 5));
-    /// ```
-    pub fn from(number: u32, dividend: u32) -> Modulo {
-        Modulo {
-            remainder: number % dividend,
-            dividend,
-        }
-    }
-
-    /// Returns the remainder part of a modulo number
-    pub fn remainder(self) -> u32 {
-        self.remainder
-    }
-
-    /// Returns the dividend part of a modulo number
-    pub fn dividend(self) -> u32 {
-        self.dividend
-    }
-}
-
-impl Mul for Modulo {
-    type Output = Self;
-
-    /// Multiplies two `Modulo` numbers
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// # use rosalind::gen_str::Modulo;
-    /// let mod1 = Modulo::from(23, 4);
-    /// let mod2 = Modulo::from(67, 4);
-    ///
-    /// assert_eq!(mod1 * mod2, Modulo::new(1, 4));
-    /// ```
-    /// Both numbers should have the same dividend to be multiplied. If not, the code should panic.
-    /// For instance, the code block below will panic.
-    ///
-    /// ```rust,should_panic
-    /// # use rosalind::gen_str::Modulo;
-    /// let mod1 = Modulo::from(23, 6);
-    /// let mod2 = Modulo::from(67, 5);
-    ///
-    /// assert_eq!(mod1 * mod2, Modulo::new(4, 6));
-    /// ```
-    fn mul(self, rhs: Self) -> Self {
-        if self.dividend() != rhs.dividend() {
-            panic!("Multiplication is only valid for modulo numbers with the same dividend")
-        }
-
-        Modulo::from(self.remainder() * rhs.remainder(), self.dividend())
     }
 }
 
