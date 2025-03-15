@@ -110,7 +110,7 @@ pub struct Protein(String);
 /// ```
 pub struct FASTA {
     // Can be very long
-    content: Box<GeneticString + 'static>,
+    content: Box<dyn GeneticString + 'static>,
     // Generally small enough to clone
     label: String,
 }
